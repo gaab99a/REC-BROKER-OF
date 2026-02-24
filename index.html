@@ -1,351 +1,510 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="h-full">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REC Broker - Vídeos Imobiliários</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>REC BROKER — Vídeos Imobiliários</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Montserrat + Playfair (opcional para títulos) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
-    body { font-family: 'Lato', sans-serif; }
-
-    .font-display { font-family: 'Playfair Display', serif; }
-
-    .gradient-bg {
-      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+    :root{
+      --bg1:#070a18;
+      --bg2:#0b1030;
+      --gold:#d4af37;
+      --gold2:#f4d03f;
+      --text:#ffffff;
+      --muted:#a6adbb;
+      --card: rgba(255,255,255,.04);
+      --stroke: rgba(212,175,55,.18);
+      --stroke2: rgba(212,175,55,.28);
     }
 
-    .gradient-gold {
-      background: linear-gradient(135deg, #d4af37, #f4d03f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    *{ box-sizing:border-box; }
+    body{
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(212,175,55,.10), transparent 60%),
+        radial-gradient(900px 500px at 90% 30%, rgba(244,208,63,.08), transparent 55%),
+        linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, #070a18 100%);
+      overflow-x:hidden;
     }
 
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      transition: all 0.3s ease;
+    .container-max { max-width: 1160px; }
+
+    .gold-text{
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      color: transparent;
     }
 
-    .glass-effect:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(212, 175, 55, 0.3);
+    .card{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      backdrop-filter: blur(12px);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+    .card:hover{
       transform: translateY(-4px);
+      border-color: var(--stroke2);
+      background: rgba(255,255,255,.06);
     }
 
-    .btn-gold {
-      background: linear-gradient(135deg, #d4af37, #f4d03f);
-      color: #0a0e27;
-      transition: all 0.3s ease;
-      font-weight: 700;
+    .btn-gold{
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color:#0b1024;
+      font-weight: 800;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
-
-    .btn-gold:hover {
+    .btn-gold:hover{
       transform: translateY(-2px);
-      box-shadow: 0 20px 40px -10px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 18px 40px rgba(212,175,55,.22);
     }
 
-    .floating { animation: floating 8s ease-in-out infinite; }
-    @keyframes floating {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-30px); }
+    .btn-ghost{
+      border: 1px solid var(--stroke2);
+      background: rgba(255,255,255,.03);
+      transition: background .2s ease, transform .2s ease, border-color .2s ease;
+    }
+    .btn-ghost:hover{
+      background: rgba(212,175,55,.07);
+      border-color: rgba(212,175,55,.40);
+      transform: translateY(-2px);
     }
 
-    .slide-up {
-      animation: slideUp 0.8s ease-out forwards;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
-
-    .stagger-1 { animation-delay: 0.1s; }
-    .stagger-2 { animation-delay: 0.2s; }
-    .stagger-3 { animation-delay: 0.3s; }
-    .stagger-4 { animation-delay: 0.4s; }
-
-    .icon-box {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 20px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.2);
+    .hairline{
+      border-top: 1px solid rgba(212,175,55,.12);
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: rgba(212, 175, 55, 0.10);
-      border: 1px solid rgba(212, 175, 55, 0.22);
+    .tag{
+      border: 1px solid rgba(212,175,55,.22);
+      background: rgba(212,175,55,.08);
+      color: rgba(244,208,63,.92);
+      font-weight: 700;
+      letter-spacing: .02em;
     }
 
-    /* Card “Instagram/Reels” */
-    .reel-card {
-      border-radius: 20px;
-      overflow: hidden;
-      max-width: 420px;
-      margin: 0 auto;
+    /* Shorts vertical 9:16 */
+    .ratio-9x16{
+      aspect-ratio: 9 / 16;
     }
-
-    /* Safe: deixa o iframe “polido” */
-    .reel-iframe {
-      width: 100%;
-      height: 100%;
-      display: block;
-      background: #000;
+    iframe{
+      display:block;
+      width:100%;
+      height:100%;
+      background:#000;
     }
   </style>
 </head>
 
-<body class="m-0 p-0 h-full">
-  <div class="min-h-screen gradient-bg text-white overflow-x-hidden">
+<body class="min-h-screen">
+  <!-- NAV -->
+  <header class="sticky top-0 z-30 backdrop-blur-xl" style="background: rgba(7,10,24,.55); border-bottom: 1px solid rgba(212,175,55,.10);">
+    <div class="container-max mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="leading-tight">
+        <div class="text-2xl md:text-3xl font-black tracking-wide">
+          <span class="gold-text">REC BROKER</span>
+        </div>
+        <div class="text-xs md:text-sm" style="color: var(--muted);">
+          Vídeos Imobiliários • São José do Rio Preto & Região • 4 anos de mercado
+        </div>
+      </div>
 
-    <!-- Decorative Elements -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-20 left-10 w-72 h-72 bg-amber-600/5 rounded-full blur-3xl floating"></div>
-      <div class="absolute top-40 right-20 w-96 h-96 bg-amber-700/5 rounded-full blur-3xl floating" style="animation-delay: -2s;"></div>
-      <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-amber-600/5 rounded-full blur-3xl floating" style="animation-delay: -4s;"></div>
+      <nav class="hidden md:flex items-center gap-8 text-sm" style="color: var(--muted);">
+        <a href="#portfolio" class="hover:text-white transition">Portfólio</a>
+        <a href="#ia" class="hover:text-white transition">IA</a>
+        <a href="#render" class="hover:text-white transition">Render 3D</a>
+        <a href="#edicao" class="hover:text-white transition">Edição</a>
+        <a href="#satelite" class="hover:text-white transition">Satélite</a>
+        <a href="#contato" class="hover:text-white transition">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="container-max mx-auto px-6 pt-16 pb-10">
+    <div class="grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full tag text-xs mb-6">
+          Produção premium • foco em conversão
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-black leading-tight">
+          Conteúdo imobiliário com <span class="gold-text">padrão alto</span> — feito para vender.
+        </h1>
+
+        <p class="mt-6 text-lg md:text-xl" style="color: var(--muted);">
+          Vídeos verticais (Reels/Shorts), edição profissional, renderizações realistas e vídeos de satélite com demarcação.
+          Atendemos <span class="text-white font-bold">São José do Rio Preto</span> e cidades da região — e serviços de edição para todo o Brasil.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <!-- WhatsApp principal (17) com mensagem pronta -->
+          <a class="btn-gold px-6 py-4 rounded-xl text-center"
+             href="https://wa.me/5517992478976?text=Ol%C3%A1%21%20Sou%20corretor%2Fimobili%C3%A1ria%20e%20quero%20or%C3%A7amento.%0A%0A%F0%9F%93%8D%20Cidade%3A%20_____%0A%F0%9F%8F%A0%20Tipo%20de%20im%C3%B3vel%3A%20_____%0A%F0%9F%8E%AC%20Servi%C3%A7o%20(V%C3%ADdeo%2FIA%2FRender%2FEdi%C3%A7%C3%A3o%2FSat%C3%A9lite)%3A%20_____%0A%F0%9F%93%85%20Prazo%20ideal%3A%20_____%0A%0APode%20me%20passar%20valores%20e%20condi%C3%A7%C3%B5es%3F"
+             target="_blank" rel="noopener noreferrer">
+            Solicitar orçamento no WhatsApp (17)
+          </a>
+
+          <!-- WhatsApp orçamento (82) -->
+          <a class="btn-ghost px-6 py-4 rounded-xl text-center"
+             href="https://wa.me/5582993884045?text=Ol%C3%A1%21%20Quero%20or%C3%A7amento%20para%20conte%C3%BAdo%20imobili%C3%A1rio.%0A%0A%F0%9F%93%8D%20Cidade%3A%20_____%0A%F0%9F%8F%A0%20Tipo%20de%20im%C3%B3vel%3A%20_____%0A%F0%9F%8E%AC%20Servi%C3%A7o%3A%20_____%0A%0APode%20me%20enviar%20uma%20proposta%3F"
+             target="_blank" rel="noopener noreferrer">
+            Orçamento por WhatsApp (82)
+          </a>
+        </div>
+
+        <div class="mt-6 text-sm" style="color: var(--muted);">
+          Atendimento local: <span class="text-white font-semibold">São José do Rio Preto e região</span>.
+          Edição: <span class="text-white font-semibold">todo o Brasil</span>.
+        </div>
+      </div>
+
+      <div class="card rounded-2xl p-6">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <div class="text-sm" style="color: var(--muted);">Padrão de entrega</div>
+            <div class="text-xl font-extrabold">Qualidade • Elegância • Conversão</div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm" style="color: var(--muted);">Experiência</div>
+            <div class="text-2xl font-black gold-text">4 anos</div>
+          </div>
+        </div>
+
+        <div class="hairline my-6"></div>
+
+        <div class="grid grid-cols-2 gap-4 text-sm">
+          <div class="card rounded-xl p-4">
+            <div class="font-extrabold">Vídeos Imobiliários</div>
+            <div style="color: var(--muted);" class="mt-1">Reels/Shorts + roteirização e ritmo de venda.</div>
+          </div>
+          <div class="card rounded-xl p-4">
+            <div class="font-extrabold">IA & Render</div>
+            <div style="color: var(--muted);" class="mt-1">Ambientes mobiliados e realismo para projeto.</div>
+          </div>
+          <div class="card rounded-xl p-4">
+            <div class="font-extrabold">Edição Pro</div>
+            <div style="color: var(--muted);" class="mt-1">Cor, áudio, cortes e finalização premium.</div>
+          </div>
+          <div class="card rounded-xl p-4">
+            <div class="font-extrabold">Satélite</div>
+            <div style="color: var(--muted);" class="mt-1">Demarcação de grandes áreas e apresentação.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO TOP (4 shorts) -->
+  <section id="portfolio" class="container-max mx-auto px-6 py-14">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+      <div>
+        <div class="text-sm tag inline-flex px-3 py-1 rounded-full">PORTFÓLIO</div>
+        <h2 class="mt-4 text-3xl md:text-4xl font-black">Vídeos imobiliários (Shorts/Reels)</h2>
+        <p class="mt-3" style="color: var(--muted);">
+          Conteúdo pensado para captar atenção, valorizar o imóvel e gerar chamadas no WhatsApp.
+        </p>
+      </div>
+      <div class="text-sm" style="color: var(--muted);">
+        Quer um orçamento rápido? Use os botões do topo.
+      </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="relative z-10 px-6 py-6 border-b border-amber-600/10">
-      <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center relative overflow-hidden shadow-lg shadow-amber-600/50">
-            <svg class="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="10" width="80" height="80" rx="8" fill="none" stroke="white" stroke-width="2" />
-              <circle cx="50" cy="35" r="12" fill="none" stroke="white" stroke-width="2" />
-              <circle cx="50" cy="35" r="8" fill="white" />
-              <circle cx="50" cy="35" r="5" fill="#d4af37" />
-              <path d="M 30 55 L 70 55" stroke="white" stroke-width="2" stroke-linecap="round" />
-              <path d="M 28 65 L 72 65" stroke="white" stroke-width="2" stroke-linecap="round" />
-              <path d="M 32 75 L 68 75" stroke="white" stroke-width="2" stroke-linecap="round" />
-              <rect x="10" y="10" width="80" height="80" rx="8" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.5" />
-            </svg>
-          </div>
-
-          <div>
-            <div class="text-2xl font-display font-bold gradient-gold">REC BROKER</div>
-            <div class="text-xs text-amber-600/70">Vídeos Imobiliários</div>
-          </div>
-        </div>
-
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#servicos" class="text-gray-300 hover:text-amber-400 transition-colors">Serviços</a>
-          <a href="#videos" class="text-gray-300 hover:text-amber-400 transition-colors">Portfólio</a>
-          <a href="#contato" class="text-gray-300 hover:text-amber-400 transition-colors">Contato</a>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- 5mSsZgaW8fs -->
+      <div class="card rounded-2xl overflow-hidden">
+        <div class="ratio-9x16">
+          <iframe
+            src="https://www.youtube.com/embed/5mSsZgaW8fs?mute=1&controls=1&modestbranding=1&rel=0"
+            title="Vídeo imobiliário 1"
+            frameborder="0"
+            allow="encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
         </div>
       </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="relative z-10 px-6 py-24 md:py-32">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div class="badge mb-8 slide-up">
-              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-              <span class="text-sm text-amber-300">🎬 Produção Premium</span>
-            </div>
-
-            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 slide-up stagger-1 leading-tight">
-              Vídeos Imobiliários que <span class="gradient-gold">Vendem</span>
-            </h1>
-
-            <p class="text-xl text-gray-400 mb-10 slide-up stagger-2 leading-relaxed">
-              Apresente seus imóveis com profissionalismo e elegância. Conteúdo que valoriza o imóvel e acelera a decisão do cliente.
-            </p>
-
-            <div class="flex flex-col sm:flex-row gap-4 slide-up stagger-3">
-              <a class="btn-gold px-8 py-4 rounded-lg font-semibold text-lg text-center hover:scale-105"
-                 href="https://wa.me/5517992478976" target="_blank" rel="noopener noreferrer">
-                💬 WhatsApp
-              </a>
-
-              <a class="px-8 py-4 rounded-lg font-semibold text-lg border border-amber-600/30 hover:bg-amber-600/10 transition-all text-center"
-                 href="#contato">
-                📧 Solicitar Orçamento
-              </a>
-            </div>
-          </div>
-
-          <div class="slide-up stagger-2">
-            <div class="relative">
-              <div class="absolute inset-0 bg-gradient-to-br from-amber-600/20 to-transparent rounded-lg blur-2xl"></div>
-              <div class="relative glass-effect rounded-lg p-8 text-center">
-                <svg class="w-20 h-20 mx-auto text-amber-400 mb-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                </svg>
-                <div class="text-3xl font-bold gradient-gold mb-2">+500</div>
-                <div class="text-gray-300">Imóveis Filmados</div>
-              </div>
-            </div>
-          </div>
-
+      <!-- u-2GgaD0BRA -->
+      <div class="card rounded-2xl overflow-hidden">
+        <div class="ratio-9x16">
+          <iframe
+            src="https://www.youtube.com/embed/u-2GgaD0BRA?mute=1&controls=1&modestbranding=1&rel=0"
+            title="Vídeo imobiliário 2"
+            frameborder="0"
+            allow="encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
         </div>
       </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="servicos" class="relative z-10 px-6 py-24">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <span class="text-amber-400 font-semibold mb-4 block slide-up">NOSSOS SERVIÇOS</span>
-          <h2 class="text-4xl md:text-5xl font-display font-bold slide-up stagger-1">Soluções para Cada Propriedade</h2>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="glass-effect rounded-lg p-8 transition-all duration-300 slide-up stagger-1 text-center">
-            <div class="icon-box">
-              <svg class="w-10 h-10 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-3">Vídeo 4K Drone</h3>
-            <p class="text-gray-400">Filmagem aérea e externa que destaca localização e pontos fortes do imóvel.</p>
-          </div>
-
-          <div class="glass-effect rounded-lg p-8 transition-all duration-300 slide-up stagger-2 text-center">
-            <div class="icon-box">
-              <svg class="w-10 h-10 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1m2-1v2.5M9 7l-2 1M9 7l2-1M9 7v2.5M5 7l2 1M5 7l-2-1m2 1v2.5" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-3">Tour Vertical (Reels)</h3>
-            <p class="text-gray-400">Conteúdo 9:16 pronto para Instagram Reels e Shorts, com ritmo de venda.</p>
-          </div>
-
-          <div class="glass-effect rounded-lg p-8 transition-all duration-300 slide-up stagger-3 text-center">
-            <div class="icon-box">
-              <svg class="w-10 h-10 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-3">Edição Profissional</h3>
-            <p class="text-gray-400">Cor, legendas, motion e trilha para transformar o vídeo em vitrine premium.</p>
-          </div>
+      <!-- 4olN5xT7KIs -->
+      <div class="card rounded-2xl overflow-hidden">
+        <div class="ratio-9x16">
+          <iframe
+            src="https://www.youtube.com/embed/4olN5xT7KIs?mute=1&controls=1&modestbranding=1&rel=0"
+            title="Vídeo imobiliário 3"
+            frameborder="0"
+            allow="encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
         </div>
       </div>
-    </section>
 
-    <!-- Portfolio Section (Shorts Vertical) -->
-    <section id="videos" class="relative z-10 px-6 py-24">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <span class="text-amber-400 font-semibold mb-4 block slide-up">NOSSOS TRABALHOS</span>
-          <h2 class="text-4xl md:text-5xl font-display font-bold slide-up stagger-1">Portfólio</h2>
-          <p class="text-gray-400 mt-4 max-w-2xl mx-auto slide-up stagger-2">
-            Formato vertical (9:16) estilo Instagram — perfeito para captar atenção e gerar chamadas no WhatsApp.
+      <!-- zYjEkmCjOFI -->
+      <div class="card rounded-2xl overflow-hidden">
+        <div class="ratio-9x16">
+          <iframe
+            src="https://www.youtube.com/embed/zYjEkmCjOFI?mute=1&controls=1&modestbranding=1&rel=0"
+            title="Vídeo imobiliário 4"
+            frameborder="0"
+            allow="encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IA MOBILIAR -->
+  <section id="ia" class="container-max mx-auto px-6 py-14">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <div class="card rounded-2xl p-8">
+        <div class="text-sm tag inline-flex px-3 py-1 rounded-full">MOBILIAR COM IA</div>
+        <h2 class="mt-4 text-3xl md:text-4xl font-black">Transforme ambientes vazios em espaços que vendem.</h2>
+        <p class="mt-4" style="color: var(--muted);">
+          Ideal para casas e apartamentos <span class="text-white font-semibold">sem mobília</span>.
+          A IA ajuda a criar uma apresentação mais atrativa e acelera o interesse do comprador.
+        </p>
+
+        <div class="mt-7 flex flex-col sm:flex-row gap-3">
+          <a class="btn-gold px-6 py-4 rounded-xl text-center"
+             href="https://wa.me/5517992478976?text=Ol%C3%A1%21%20Tenho%20um%20im%C3%B3vel%20vazio%20e%20quero%20mobili%C3%A1-lo%20com%20IA%20para%20an%C3%BAncio.%0A%0A%F0%9F%93%8D%20Cidade%3A%20_____%0A%F0%9F%8F%A0%20Tipo%20de%20im%C3%B3vel%3A%20_____%0A%F0%9F%93%B7%20Posso%20enviar%20as%20fotos%20para%20avalia%C3%A7%C3%A3o%3F"
+             target="_blank" rel="noopener noreferrer">
+            Quero mobiliar com IA (WhatsApp)
+          </a>
+
+          <a class="btn-ghost px-6 py-4 rounded-xl text-center"
+             href="#contato">
+            Ver contatos
+          </a>
+        </div>
+
+        <p class="mt-5 text-sm" style="color: var(--muted);">
+          Atendimento: São José do Rio Preto e cidades da região.
+        </p>
+      </div>
+
+      <div class="card rounded-2xl overflow-hidden">
+        <div class="ratio-9x16">
+          <iframe
+            src="https://www.youtube.com/embed/WdvcmzywWLI?autoplay=1&mute=1&loop=1&playlist=WdvcmzywWLI&controls=1&modestbranding=1&rel=0"
+            title="Mobiliário com IA"
+            frameborder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RENDER 3D REALISTA -->
+  <section id="render" class="container-max mx-auto px-6 py-14">
+    <div class="card rounded-2xl p-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="max-w-3xl">
+          <div class="text-sm tag inline-flex px-3 py-1 rounded-full">RENDERIZAÇÃO 3D REALISTA</div>
+          <h2 class="mt-4 text-3xl md:text-4xl font-black">Qualidade realista que dá vida ao projeto.</h2>
+          <p class="mt-4" style="color: var(--muted);">
+            Produção de imagens e apresentações a partir de projeto 3D, com acabamento realista para valorizar
+            fachadas, interiores e detalhes — ideal para lançamentos, construtoras e incorporações.
           </p>
         </div>
 
-        <!-- Reel card -->
-        <div class="reel-card glass-effect slide-up stagger-3">
-          <div style="aspect-ratio: 9 / 16;">
-            <iframe
-              class="reel-iframe"
-              src="https://www.youtube.com/embed/txebAbg8YV0?autoplay=1&mute=1&loop=1&playlist=txebAbg8YV0&controls=1&modestbranding=1&rel=0"
-              title="REC Broker • Shorts"
-              frameborder="0"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowfullscreen></iframe>
-          </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a class="btn-gold px-6 py-4 rounded-xl text-center"
+             href="https://wa.me/5517992478976?text=Ol%C3%A1%21%20Tenho%20um%20projeto%203D%20e%20quero%20renderiza%C3%A7%C3%A3o%20realista.%0A%0A%F0%9F%93%A6%20Arquivos%20(SKP%2FBLEND%2FFBX%2Fetc)%3A%20_____%0A%F0%9F%93%B7%20Quantidade%20de%20imagens%2F%C3%A2ngulos%3A%20_____%0A%F0%9F%93%85%20Prazo%3A%20_____%0A%0APode%20me%20passar%20or%C3%A7amento%3F"
+             target="_blank" rel="noopener noreferrer">
+            Quero renderização 3D (WhatsApp)
+          </a>
 
-          <div class="p-5 text-left">
-            <div class="flex items-center justify-between gap-4">
-              <div>
-                <div class="font-bold text-lg">Tour do imóvel</div>
-                <div class="text-gray-300 text-sm">Vídeo vertical • estilo Reels</div>
-              </div>
-              <span class="text-xs px-3 py-1 rounded-full bg-amber-600/10 border border-amber-600/20 text-amber-300">
-                Shorts 9:16
-              </span>
-            </div>
-
-            <div class="mt-5 flex flex-col sm:flex-row gap-3">
-              <a class="btn-gold px-5 py-3 rounded-lg font-semibold text-center"
-                 href="https://wa.me/5517992478976"
-                 target="_blank" rel="noopener noreferrer">
-                💬 Orçamento no WhatsApp
-              </a>
-
-              <a class="px-5 py-3 rounded-lg font-semibold border border-amber-600/30 hover:bg-amber-600/10 transition-all text-center"
-                 href="https://youtube.com/shorts/txebAbg8YV0"
-                 target="_blank" rel="noopener noreferrer">
-                ▶️ Ver no YouTube
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center mt-10 text-gray-400 slide-up stagger-4">
-          Quer ver mais? Em breve adicionaremos novos vídeos.
+          <a class="btn-ghost px-6 py-4 rounded-xl text-center"
+             href="mailto:recgab31@gmail.com?subject=Or%C3%A7amento%20Renderiza%C3%A7%C3%A3o%203D%20Realista&body=Ol%C3%A1!%0A%0AQuero%20or%C3%A7amento%20para%20renderiza%C3%A7%C3%A3o%203D%20realista.%0A%0ADescri%C3%A7%C3%A3o%20do%20projeto:%0AArquivos:%0AQuantidade%20de%20imagens:%0APrazo:%0A%0AObrigado!">
+            Pedir por e-mail
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contato" class="relative z-10 px-6 py-24">
-      <div class="max-w-4xl mx-auto">
-        <div class="glass-effect rounded-lg p-12 text-center">
-          <h2 class="text-4xl font-display font-bold mb-6">Pronto para Transformar seus Imóveis?</h2>
-          <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
-            Chame no WhatsApp e eu te envio uma proposta com valores e prazos.
-          </p>
-
-          <div class="grid md:grid-cols-2 gap-8 mb-6">
-            <a href="https://wa.me/5517992478976" target="_blank" rel="noopener noreferrer"
-               class="glass-effect rounded-lg p-8 hover:bg-amber-600/20 transition-all hover:border-amber-400 group block">
-              <div class="text-4xl mb-3">💬</div>
-              <div class="text-xl font-bold mb-2">WhatsApp</div>
-              <div class="text-amber-400 font-semibold">17 99247-8976</div>
-              <div class="text-sm text-gray-400 mt-2">Resposta rápida</div>
-            </a>
-
-            <a href="https://instagram.com/rec.broker" target="_blank" rel="noopener noreferrer"
-               class="glass-effect rounded-lg p-8 hover:bg-amber-600/20 transition-all hover:border-amber-400 group block">
-              <div class="text-4xl mb-3">📸</div>
-              <div class="text-xl font-bold mb-2">Instagram</div>
-              <div class="text-amber-400 font-semibold">@rec.broker</div>
-              <div class="text-sm text-gray-400 mt-2">Siga nossos trabalhos</div>
-            </a>
-          </div>
-
-          <p class="text-gray-400 text-sm">
-            Atendimento: Bady Bassitt e região • Produção para imobiliárias e corretores
-          </p>
+  <!-- EDIÇÃO PROFISSIONAL -->
+  <section id="edicao" class="container-max mx-auto px-6 py-14">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <div class="card rounded-2xl overflow-hidden">
+        <div class="ratio-9x16">
+          <iframe
+            src="https://www.youtube.com/embed/OdQJwZxJBOI?mute=1&controls=1&modestbranding=1&rel=0"
+            title="Edição profissional"
+            frameborder="0"
+            allow="encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
         </div>
       </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="relative z-10 px-6 py-8 border-t border-amber-600/10">
-      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <p class="text-gray-400">© 2026 REC BROKER. Todos os direitos reservados. Vídeos Imobiliários Premium.</p>
+      <div class="card rounded-2xl p-8">
+        <div class="text-sm tag inline-flex px-3 py-1 rounded-full">EDIÇÃO PROFISSIONAL</div>
+        <h2 class="mt-4 text-3xl md:text-4xl font-black">Edição com padrão profissional — atendimento em todo o Brasil.</h2>
+        <p class="mt-4" style="color: var(--muted);">
+          Ritmo, cortes, correção de cor, áudio e finalização com estética premium.
+          Atendimento remoto para clientes em <span class="text-white font-semibold">qualquer estado</span>.
+        </p>
 
-        <div class="flex items-center gap-6">
-          <a href="https://instagram.com/rec.broker" target="_blank" rel="noopener noreferrer"
-             class="text-gray-400 hover:text-amber-400 transition-colors">Instagram</a>
-          <a href="https://wa.me/5517992478976" target="_blank" rel="noopener noreferrer"
-             class="text-gray-400 hover:text-amber-400 transition-colors">WhatsApp</a>
+        <div class="mt-7 flex flex-col sm:flex-row gap-3">
+          <a class="btn-gold px-6 py-4 rounded-xl text-center"
+             href="https://wa.me/5517992478976?text=Ol%C3%A1%21%20Tenho%20v%C3%ADdeos%20e%20quero%20edi%C3%A7%C3%A3o%20profissional.%0A%0A%F0%9F%93%A6%20Formato%20(YouTube%2FReels%2FAn%C3%BAncios)%3A%20_____%0A%F0%9F%8E%9E%EF%B8%8F%20Dura%C3%A7%C3%A3o%20final%3A%20_____%0A%F0%9F%93%85%20Prazo%3A%20_____%0A%0APode%20me%20passar%20or%C3%A7amento%3F"
+             target="_blank" rel="noopener noreferrer">
+            Quero edição (WhatsApp)
+          </a>
+
+          <a class="btn-ghost px-6 py-4 rounded-xl text-center"
+             href="https://wa.me/5582993884045?text=Ol%C3%A1%21%20Tenho%20v%C3%ADdeos%20para%20edi%C3%A7%C3%A3o%20profissional.%20Pode%20me%20passar%20valores%3F"
+             target="_blank" rel="noopener noreferrer">
+            Edição (WhatsApp 82)
+          </a>
+        </div>
+
+        <p class="mt-5 text-sm" style="color: var(--muted);">
+          Entrega organizada e pronta para postagem (Reels/Shorts/YouTube/Anúncios).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SATÉLITE GRANDES PROPRIEDADES -->
+  <section id="satelite" class="container-max mx-auto px-6 py-14">
+    <div class="card rounded-2xl p-8">
+      <div class="text-sm tag inline-flex px-3 py-1 rounded-full">GRANDES PROPRIEDADES • VÍDEO DE SATÉLITE</div>
+      <h2 class="mt-4 text-3xl md:text-4xl font-black">Vídeo de satélite profissional com demarcação de área.</h2>
+      <p class="mt-4 max-w-4xl" style="color: var(--muted);">
+        Ideal para grandes áreas, sítios, fazendas e terrenos extensos.
+        Apresentação com movimento, destaque da região e marcação clara do perímetro para facilitar entendimento e gerar confiança.
+      </p>
+
+      <div class="mt-7 flex flex-col sm:flex-row gap-3">
+        <a class="btn-gold px-6 py-4 rounded-xl text-center"
+           href="https://wa.me/5517992478976?text=Ol%C3%A1%21%20Tenho%20uma%20grande%20%C3%A1rea%20e%20quero%20v%C3%ADdeo%20de%20sat%C3%A9lite%20com%20demarca%C3%A7%C3%A3o.%0A%0A%F0%9F%97%BA%EF%B8%8F%20Localiza%C3%A7%C3%A3o%20(link%20maps)%3A%20_____%0A%F0%9F%93%90%20Tamanho%20da%20%C3%A1rea%3A%20_____%0A%F0%9F%93%85%20Prazo%3A%20_____%0A%0APode%20me%20passar%20or%C3%A7amento%3F"
+           target="_blank" rel="noopener noreferrer">
+          Quero vídeo de satélite (WhatsApp)
+        </a>
+
+        <a class="btn-ghost px-6 py-4 rounded-xl text-center"
+           href="https://wa.me/5582993884045?text=Ol%C3%A1%21%20Quero%20v%C3%ADdeo%20de%20sat%C3%A9lite%20com%20demarca%C3%A7%C3%A3o%20para%20grande%20%C3%A1rea.%20Pode%20me%20passar%20or%C3%A7amento%3F"
+           target="_blank" rel="noopener noreferrer">
+          Satélite (WhatsApp 82)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCERIA / TRABALHE CONOSCO / CONTATO -->
+  <section id="contato" class="container-max mx-auto px-6 py-16">
+    <div class="grid lg:grid-cols-3 gap-6">
+      <!-- ORÇAMENTO -->
+      <div class="card rounded-2xl p-8">
+        <div class="text-sm tag inline-flex px-3 py-1 rounded-full">CONTATO • ORÇAMENTO</div>
+        <h3 class="mt-4 text-2xl font-black">Peça orçamento agora</h3>
+        <p class="mt-3" style="color: var(--muted);">
+          Para imóveis, IA, render 3D, edição ou satélite. Resposta rápida.
+        </p>
+
+        <div class="mt-6 flex flex-col gap-3">
+          <a class="btn-gold px-5 py-4 rounded-xl text-center"
+             href="https://wa.me/5517992478976?text=Ol%C3%A1%21%20Quero%20or%C3%A7amento%20REC%20BROKER.%0A%0A%F0%9F%93%8D%20Cidade%3A%20_____%0A%F0%9F%8E%AC%20Servi%C3%A7o%3A%20_____%0A%F0%9F%93%85%20Prazo%3A%20_____%0A%0APode%20me%20passar%20valores%3F"
+             target="_blank" rel="noopener noreferrer">
+            WhatsApp (17) — orçamento
+          </a>
+
+          <a class="btn-ghost px-5 py-4 rounded-xl text-center"
+             href="https://wa.me/5582993884045?text=Ol%C3%A1%21%20Quero%20or%C3%A7amento%20REC%20BROKER.%20Pode%20me%20ajudar%3F"
+             target="_blank" rel="noopener noreferrer">
+            WhatsApp (82) — orçamento
+          </a>
+        </div>
+
+        <div class="mt-6 text-sm" style="color: var(--muted);">
+          <div><span class="text-white font-semibold">WhatsApp 17:</span> 17 99247-8976</div>
+          <div><span class="text-white font-semibold">WhatsApp 82:</span> 82 99388-4045</div>
+          <div class="mt-2"><span class="text-white font-semibold">Local:</span> São José do Rio Preto e região</div>
         </div>
       </div>
-    </footer>
 
-  </div>
+      <!-- PARCERIA CORRETOR -->
+      <div class="card rounded-2xl p-8">
+        <div class="text-sm tag inline-flex px-3 py-1 rounded-full">PARCERIA • CORRETORES</div>
+        <h3 class="mt-4 text-2xl font-black">Parceria com corretor</h3>
+        <p class="mt-3" style="color: var(--muted);">
+          Quer parceria para produzir conteúdo e vender mais? Fale comigo por e-mail ou WhatsApp.
+        </p>
+
+        <div class="mt-6 flex flex-col gap-3">
+          <a class="btn-gold px-5 py-4 rounded-xl text-center"
+             href="mailto:recgab31@gmail.com?subject=Parceria%20com%20Corretor%20-%20REC%20BROKER&body=Ol%C3%A1!%0A%0AQuero%20falar%20sobre%20parceria%20entre%20corretor%20e%20REC%20BROKER.%0A%0ANome:%0ACidade:%0AInstagram:%0ATipo%20de%20im%C3%B3veis:%0A%0AObrigado!"
+             target="_blank" rel="noopener noreferrer">
+            Enviar e-mail (parceria)
+          </a>
+
+          <a class="btn-ghost px-5 py-4 rounded-xl text-center"
+             href="https://wa.me/5582993884045?text=Ol%C3%A1%21%20Quero%20falar%20sobre%20parceria%20entre%20corretor%20e%20REC%20BROKER.%0A%0ANome%3A%20_____%0ACidade%3A%20_____%0AInstagram%3A%20_____%0ATipo%20de%20im%C3%B3vel%3A%20_____%0A"
+             target="_blank" rel="noopener noreferrer">
+            WhatsApp (82) — parceria
+          </a>
+        </div>
+
+        <div class="mt-6 text-sm" style="color: var(--muted);">
+          E-mail: <span class="text-white font-semibold">recgab31@gmail.com</span><br/>
+          WhatsApp: <span class="text-white font-semibold">82 99388-4045</span>
+        </div>
+      </div>
+
+      <!-- TRABALHE CONOSCO -->
+      <div class="card rounded-2xl p-8">
+        <div class="text-sm tag inline-flex px-3 py-1 rounded-full">TRABALHE CONOSCO</div>
+        <h3 class="mt-4 text-2xl font-black">Envie seu contato</h3>
+        <p class="mt-3" style="color: var(--muted);">
+          Quer trabalhar com a REC BROKER? Envie seu e-mail com portfólio e cidade.
+        </p>
+
+        <div class="mt-6 flex flex-col gap-3">
+          <a class="btn-gold px-5 py-4 rounded-xl text-center"
+             href="mailto:recbrokerrh@gmail.com?subject=Trabalhe%20Conosco%20-%20REC%20BROKER&body=Ol%C3%A1!%0A%0AQuero%20trabalhar%20com%20a%20REC%20BROKER.%0A%0ANome:%0ACidade:%0A%C3%81rea%20(edi%C3%A7%C3%A3o%2Fcapta%C3%A7%C3%A3o%2F3D%2Fetc):%0ALink%20portf%C3%B3lio:%0A%0AObrigado!"
+             target="_blank" rel="noopener noreferrer">
+            Enviar e-mail para RH
+          </a>
+
+          <a class="btn-ghost px-5 py-4 rounded-xl text-center"
+             href="#portfolio">
+            Ver portfólio
+          </a>
+        </div>
+
+        <div class="mt-6 text-sm" style="color: var(--muted);">
+          RH: <span class="text-white font-semibold">recbrokerrh@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="hairline">
+    <div class="container-max mx-auto px-6 py-10 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+      <div class="text-sm" style="color: var(--muted);">
+        © 2026 <span class="text-white font-semibold">REC BROKER</span>. São José do Rio Preto e região.
+      </div>
+      <div class="text-sm" style="color: var(--muted);">
+        Orçamentos: <span class="text-white font-semibold">17 99247-8976</span> • <span class="text-white font-semibold">82 99388-4045</span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
